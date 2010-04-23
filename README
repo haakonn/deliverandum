@@ -8,6 +8,10 @@ authentication mechanism yet; the current one is designed for a proprietary
 user management system. Spring Security support is planned to mend this
 for version 1.0.
 
+In addition, graphics and CSS is missing. We were unable to include these
+for copyright reasons. Free replacements for these are planned for 1.0.
+We would be thankful for contributions especially in this area.
+
 Requirements include a Servlet container (Tomcat has been tested) and a
 JDBC-supported DBMS (PostgreSQL has been tested). The application has been
 run in a production environment under Ubuntu Server 9.10.
