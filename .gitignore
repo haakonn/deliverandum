@@ -1,0 +1,4 @@
+props/tomcat.properties
+web/WEB-INF/meta/deliverandum.properties
+bin
+classes

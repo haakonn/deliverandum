@@ -1,0 +1,23 @@
+###############################################################################
+#                                                                             #
+# !!! IMPORTANT !!!                                                           #
+#                                                                             #
+# This is an example file with user-specific properties for the Tomcat server.#
+# To make the build script run, copy this file to tomcat.properties and fill  #
+# in your own values.                                                         #
+#                                                                             #
+###############################################################################
+
+ # URL to the manager of the tomcat instance you want to deploy to
+tomcat.manager.url=http://localhost:8080/manager
+
+ # User name of user defined in tomcat-users.xml (must have manager role)
+tomcat.username=admin
+
+ # Password of user
+tomcat.password=admin
+
+ # Path to folder containing tomcat.
+ #
+ # Windows note: Remember to escape backslashes with another backslash
+webroot=/usr/local/tomcat/webapps/delivery

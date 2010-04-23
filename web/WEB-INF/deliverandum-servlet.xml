@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- JSP view resolvers -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="appProps" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="default" autowire="default">
+        <property name="location" value="/WEB-INF/meta/deliverandum.properties"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+    
+    <bean id="deliverandumDataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="default" autowire="default">
+        <property name="driverClassName" value="${jdbc.deliverandum.driverClassName}"/>
+        <property name="url" value="${jdbc.deliverandum.url}"/>
+        <property name="username" value="${jdbc.deliverandum.username}"/>
+        <property name="password" value="${jdbc.deliverandum.password}"/>
+    </bean>
+
+    <!--  a supplementary data source used for proprietary site-specific signon method -->
+    <bean id="webucatorDataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="default" autowire="default">
+        <property name="driverClassName" value="${jdbc.webucator.driverClassName}"/>
+        <property name="url" value="${jdbc.webucator.url}"/>
+        <property name="username" value="${jdbc.webucator.username}"/>
+        <property name="password" value="${jdbc.webucator.password}"/>
+    </bean>
+    
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${email.host}" />
+    </bean>
+
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
+    
+    <context:annotation-config />
+    <context:component-scan base-package="no.uib.ii.deliverandum" />
+
+</beans>

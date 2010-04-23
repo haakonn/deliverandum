@@ -1,0 +1,25 @@
+This is Deliverandum 0.9, a web application to manage delivery of exercises
+in an educational setting.
+
+It is written in Java using Spring 3.0.
+
+This version is rough around the edges. It does not have a standards-based
+authentication mechanism yet; the current one is designed for a proprietary
+user management system. Spring Security support is planned to mend this
+for version 1.0.
+
+Requirements include a Servlet container (Tomcat has been tested) and a
+JDBC-supported DBMS (PostgreSQL has been tested). The application has been
+run in a production environment under Ubuntu Server 9.10.
+
+The software has been developed for the Department of Informatics at the
+University of Bergen, Norway. It has been licensed under the Affero
+GNU General Public License, version 3.0. This means you can freely use
+it for your own purposes; however, if you make modifications, you are
+required to make those modifications available to users of your installation
+under the same license as was granted you. We gladly accept patches!
+See http://www.gnu.org/licenses/agpl-3.0.html for more information.
+
+Please contact me, Haakon Nilsen <haakon@ii.uib.no> if you have any questions
+or comments. I would love to hear how you make use of the software.
+
