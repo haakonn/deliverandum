@@ -68,11 +68,11 @@ public class FileSystemDeliveryFileDao implements DeliveryFileDao {
     @Override
     public void addFiles(Delivery delivery) {
         File dir = new File(resolvePath(delivery));
-        IOFileFilter notesFilter = new RegexFileFilter("^" + NOTES_PREFIX + ".*" + NOTES_POSTFIX + "$");
-        IOFileFilter notNotesFilter = new NotFileFilter(notesFilter);
         if (!dir.exists()) {
             return;
         }
+        IOFileFilter notesFilter = new RegexFileFilter("^" + NOTES_PREFIX + ".*" + NOTES_POSTFIX + "$");
+        IOFileFilter notNotesFilter = new NotFileFilter(notesFilter);
         Collection<File> files = FileUtils.listFiles(dir, notNotesFilter, null);
         Collections.sort((List<File>) files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         for (File file : files) {
