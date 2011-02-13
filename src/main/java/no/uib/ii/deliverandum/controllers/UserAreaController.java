@@ -19,6 +19,7 @@ import no.uib.ii.deliverandum.persistence.DeliveryFileDao;
 import no.uib.ii.deliverandum.service.CourseMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ public class UserAreaController extends ControllerBase {
     @Autowired private DeliveryDao deliveryDao;
     @Autowired private AssignmentDao assignmentDao;
     @Autowired private DeliveryFileDao fileDao;
+    @Value("${app.courseAdminEmail}") private String courseAdminEmail;
     
     @RequestMapping("/{courseName}/index.html")
     public ModelAndView index(
@@ -110,6 +112,7 @@ public class UserAreaController extends ControllerBase {
         mav.addObject("deliveries", previousDeliveries);
         mav.addObject("openAssignments", currentAssignments);
         mav.addObject("courseName", courseName);
+        mav.addObject("courseAdminEmail", courseAdminEmail);
         mav.addObject("command", new UserDeliveryCommand());
         mav.addObject("user", user);
         return mav;

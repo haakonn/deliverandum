@@ -9,5 +9,6 @@ jdbc.webucator.password=bob
 email.host=smtp.foo.bar
 email.from=bob@foo.bar
 app.courseNames=inf100-f:1,inf101-f:2
+app.courseAdminEmail=courseadmin@example.com
 app.admins=ola001
 app.filedir=/var/deliverandum_files

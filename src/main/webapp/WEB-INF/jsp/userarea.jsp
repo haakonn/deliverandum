@@ -21,7 +21,9 @@
 
 <c:choose>
     <c:when test="${empty openAssignments}">
-        For øyeblikket kan ingen oppgaver leveres.
+        <p>For øyeblikket kan ingen oppgaver leveres.</p>
+        <p>Hvis du har spørsmål angående dette, vennligst ta kontakt med
+        <a href="mailto:${courseAdminEmail}">${courseAdminEmail}</a>.</p>
     </c:when>
     <c:otherwise>
         <form:form method="POST" enctype="multipart/form-data">
