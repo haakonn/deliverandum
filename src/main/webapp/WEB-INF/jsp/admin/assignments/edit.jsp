@@ -15,7 +15,7 @@
 <form:form method="POST">
 <%@ include file="assignmentForm.jsp" %>
 <form:checkbox path="delete"
-label="Slett denne oppgaven (ingen angrefunksjon! <em>Tilhørende leveringer vil også forsvinne!</em>)" /><br />
+label="Slett denne oppgaven (ingen angrefunksjon! <em>Tilhørende leveringer vil også forsvinne!</em>)" htmlEscape="false" /><br />
 <input type="submit" value="Endre" onclick="return !$('#delete1:checked').val() || confirm('Vil du virkelig slette denne oppgaven og alle innleveringer forbundet med den?');"/>
 </form:form>
 
