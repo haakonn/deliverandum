@@ -1,7 +1,10 @@
 package no.uib.ii.deliverandum.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +90,9 @@ public class EditDeliveryController extends ControllerBase {
             model.put("grade", delivery.getGrade());
             model.put("gradecomment", delivery.getGradeComment());
             String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "no/uib/ii/deliverandum/grade-notification.vm", model);
-            mailService.sendMail(delivery.getDeliveredBy().getEmail(), "Innlevering vurdert", text, delivery.getGradingAttachment());
+            File att = delivery.getGradingAttachment();
+            Collection<File> atts = att == null ? Collections.<File>emptyList() : Collections.singleton(att);
+            mailService.sendMail(delivery.getDeliveredBy().getEmail(), "Innlevering vurdert", text, atts);
         }
         
         ModelAndView mav = makeModelAndView(courseName, delivery, new AdminDeliveryCommand());
@@ -102,7 +107,10 @@ public class EditDeliveryController extends ControllerBase {
         mav.addObject("student", student);
         mav.addObject("delivery", delivery);
         mav.addObject("admins", adminManager.getAdmins());
-        mav.addObject("existingAttachment", delivery.getGradingAttachment().getName());
+        File gradingAttachment = delivery.getGradingAttachment();
+        if (gradingAttachment != null) {
+            mav.addObject("existingAttachment", gradingAttachment.getName());
+        }
         mav.addObject("command", cmd);
         return mav;
     }

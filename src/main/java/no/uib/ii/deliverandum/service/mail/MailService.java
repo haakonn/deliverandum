@@ -1,6 +1,7 @@
 package no.uib.ii.deliverandum.service.mail;
 
 import java.io.File;
+import java.util.Collection;
 
 import javax.mail.MessagingException;
 
@@ -16,7 +17,7 @@ public class MailService {
     @Autowired private JavaMailSender mailSender;
     @Value("${email.from}") private String fromEmail;
     
-    public void sendMail(String to, String subject, String body, File... attachments) {
+    public void sendMail(String to, String subject, String body, Collection<File> attachments) {
         try {
             MimeMessageHelper message = new MimeMessageHelper(mailSender.createMimeMessage(), true, "UTF-8");
             message.setFrom(fromEmail);
@@ -32,5 +33,5 @@ public class MailService {
             throw new RuntimeException(e);
         }
     }
-
+    
 }

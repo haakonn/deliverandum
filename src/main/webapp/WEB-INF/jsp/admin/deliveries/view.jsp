@@ -47,7 +47,10 @@
     <p>
     Filvedlegg:
     <input type="file" name="gradingAttachment" />
-    (Eksisterende: <a href="../../../attachment.html?assignment=${delivery.assignment.id}&user=${student.username}">${existingAttachment}</a>)<br />
+    <c:if test="${existingAttachment != null}">
+       (Eksisterende: <a href="../../../attachment.html?assignment=${delivery.assignment.id}&user=${student.username}">${existingAttachment}</a>)
+    </c:if>
+    <br />
     </p>
     
     <p>
