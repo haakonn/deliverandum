@@ -33,7 +33,7 @@
 
 <h2>Vurdering</h2>
 
-<form:form method="POST">
+<form:form method="POST" enctype="multipart/form-data">
     <p>
     Vurdering/karakter/bestått:
     <form:input path="grade"/>
@@ -42,6 +42,12 @@
     <p>
     Begrunnelse for/kommentarer til vurderingen (sendes til studenten på epost når vurderingen merkes som avsluttet)<br />
     <form:textarea path="gradeComment" cols="50" rows="5" />
+    </p>
+
+    <p>
+    Filvedlegg:
+    <input type="file" name="gradingAttachment" />
+    (Eksisterende: <a href="../../../attachment.html?assignment=${delivery.assignment.id}&user=${student.username}">${existingAttachment}</a>)<br />
     </p>
     
     <p>

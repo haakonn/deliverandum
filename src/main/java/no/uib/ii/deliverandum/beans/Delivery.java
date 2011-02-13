@@ -2,6 +2,7 @@ package no.uib.ii.deliverandum.beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Delivery {
     private String grade;
     private String gradeComment;
     private List<DeliveredFile> files = new ArrayList<DeliveredFile>();
+    private File gradingAttachment;
     
     public void deliveredNow() {
         deliveredAt = new DateTime();

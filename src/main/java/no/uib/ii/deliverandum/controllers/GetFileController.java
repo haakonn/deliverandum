@@ -25,13 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class GetFileController extends ControllerBase {
 
-    static final String PATH = "file";
-    
     private final MimetypesFileTypeMap mimetypes = new MimetypesFileTypeMap();
     
     @Autowired private DeliveryDao deliveryDao;
     
-    @RequestMapping("/{courseName}/" + PATH + ".html")
+    @RequestMapping("/{courseName}/file.html")
     public ModelAndView getFile(
             @PathVariable String courseName,
             @RequestParam("assignment") int assignmentId,
@@ -56,6 +54,30 @@ public class GetFileController extends ControllerBase {
                 break;
             }
         }
+        sendFile(res, file);
+        return null;
+    }
+
+    @RequestMapping("/{courseName}/attachment.html")
+    public ModelAndView getGradingAttachment(
+            @PathVariable String courseName,
+            @RequestParam("assignment") int assignmentId,
+            @RequestParam("user") String username,
+            HttpServletRequest req,
+            HttpServletResponse res) {
+        User user = (User) req.getSession().getAttribute("user");
+        if (!user.isAdmin() && !user.getUsername().equals(username)) {
+            return permissionDenied(res, "Du har ikke tilgang til denne filen.");
+        }
+        List<Delivery> deliveries = deliveryDao.getDeliveries(courseName, assignmentId, username, null);
+        if (deliveries == null || deliveries.size() < 1) {
+            return resourceNotFound(res, "Ukjent innlevering");
+        }
+        Delivery delivery = deliveries.get(0);
+        return sendFile(res, delivery.getGradingAttachment());
+    }
+
+    private ModelAndView sendFile(HttpServletResponse res, File file) {
         if (file == null) {
             return resourceNotFound(res, "Ukjent fil");
         }
@@ -83,6 +105,6 @@ public class GetFileController extends ControllerBase {
         }
         return null;
     }
-    
+
 }
 

@@ -1,6 +1,7 @@
 package no.uib.ii.deliverandum.persistence.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -28,6 +29,7 @@ public class FileSystemDeliveryFileDao implements DeliveryFileDao {
 
     private static final String NOTES_PREFIX = "___";
     private static final String NOTES_POSTFIX = ".txt";
+    private static final String GRADING_ATTACHMENT_DIR = "gradingAttachment";
     
     @Value("${app.filedir}") private String fileDir;
     
@@ -89,6 +91,13 @@ public class FileSystemDeliveryFileDao implements DeliveryFileDao {
             }
             delivery.getFiles().add(dfile);
         }
+        File attDir = new File(dir, GRADING_ATTACHMENT_DIR);
+        if (attDir.exists()) {
+            for (File file : attDir.listFiles()) {
+                delivery.setGradingAttachment(file);
+                // if there's more than 1, we don't support it so we just set it to the last one.
+            }
+        }
     }
     
     private String normalizeFilename(String filename) {
@@ -98,13 +107,13 @@ public class FileSystemDeliveryFileDao implements DeliveryFileDao {
     }
 
     @Override
-    public void persist(
+    public void persistDeliveryFile(
             @NonNull InputStream in,
             @NonNull String suggestedFilename,
             String notes,
             @NonNull Delivery delivery) {
-        suggestedFilename = normalizeFilename(suggestedFilename);
-        File file = resolveFilePath(delivery, suggestedFilename);
+        String normalizedSuggestedFilename = normalizeFilename(suggestedFilename);
+        File file = resolveFilePath(delivery, normalizedSuggestedFilename);
         try {
             IOUtils.copy(in, FileUtils.openOutputStream(file));
             if (notes != null) {
@@ -115,6 +124,31 @@ public class FileSystemDeliveryFileDao implements DeliveryFileDao {
             e.printStackTrace();
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public void persistGradingAttachment(InputStream in,
+            String suggestedFilename, Delivery delivery) {
+        String deliveryPath = resolvePath(delivery);
+        File attDir = new File(deliveryPath, GRADING_ATTACHMENT_DIR);
+        if (!attDir.exists() && !attDir.mkdirs()) {
+            throw new DaoException("Unable to create directory " + attDir);
+        }
+        try {
+            FileUtils.cleanDirectory(attDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DaoException("Error while cleaning directory " + attDir, e);
+        }
+        File f = new File(attDir, normalizeFilename(suggestedFilename));
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            IOUtils.copy(in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+        delivery.setGradingAttachment(f);
     }
 
 }

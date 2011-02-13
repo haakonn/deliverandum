@@ -77,7 +77,7 @@ public class UserAreaController extends ControllerBase {
                 delivery = command.toDelivery(assignment, user);
             }
             deliveryDao.persist(delivery);
-            fileDao.persist(file.getInputStream(), file.getOriginalFilename(), command.getNotes(), delivery);
+            fileDao.persistDeliveryFile(file.getInputStream(), file.getOriginalFilename(), command.getNotes(), delivery);
             ModelAndView mav = makeModelAndView(courseName, user);
             mav.addObject("status", "Oppgaven ble levert.");
             return mav;
