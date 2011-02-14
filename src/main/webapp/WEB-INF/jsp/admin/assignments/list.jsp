@@ -17,7 +17,7 @@
         <th>Frist</th>
     </tr>
 <c:forEach var="assignment" items="${assignments}" varStatus="loopStatus">
-    <tr class="${loopStatus.index % 2 == 0 ? 'evenRow' : 'oddRow'} linked" onclick="window.location='edit/${assignment.id}.html'">
+    <tr class="${loopStatus.index % 2 == 0 ? 'evenRow' : 'oddRow'} linked" onclick="window.location='manage/${assignment.id}.html'">
         <td>${assignment.name}</td>
         <td><joda:format value="${assignment.beginTime}" pattern="d/M 'kl.' HH:00" /></td>
         <td><joda:format value="${assignment.endTime}" pattern="d/M 'kl.' HH:00" /></td>

@@ -17,9 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-public class EditAssignmentController extends ControllerBase {
+public class ManageAssignmentController extends ControllerBase {
     
-    private static final String PATH = "admin/assignments/edit";
+    private static final String PATH = "admin/assignments/manage";
     
     @Autowired private AssignmentDao assignmentDao;
     

@@ -19,4 +19,20 @@ label="Slett denne oppgaven (ingen angrefunksjon! <em>Tilhørende leveringer vil
 <input type="submit" value="Endre" onclick="return !$('#delete1:checked').val() || confirm('Vil du virkelig slette denne oppgaven og alle innleveringer forbundet med den?');"/>
 </form:form>
 
+<%--
+<h1>Legge inn innlevering på vegne av student</h1>
+
+<form:form method="POST" enctype="multipart/form-data">
+    <p>
+    Fil:
+    <input type="file" name="file" /><br />
+    </p>
+    <p>
+    Merknader (valgfritt):<br />
+    <form:textarea path="notes" cols="50" rows="5" />
+    </p>
+    <input type="submit" value="Levere besvarelse" />
+</form:form>
+--%>
+
 <jsp:include page="../../footer.jsp" />
