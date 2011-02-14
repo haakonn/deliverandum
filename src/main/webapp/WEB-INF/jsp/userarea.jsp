@@ -51,7 +51,9 @@
             Merknader (valgfritt):<br />
             <form:textarea path="notes" cols="50" rows="5" />
             </p>
-            <input type="submit" value="Levere" />
+            <input type="submit" value="Levere besvarelse til ${fn:toLowerCase(openAssignments[0].name)}"
+                onclick="return confirm('Du er i ferd med å levere en besvarelse til oppgaven \'${fn:toLowerCase(openAssignments[0].name)}\'.\n\nTrykk OK for å bekrefte at dette stemmer.');"
+             />
         </form:form>
     </c:otherwise>
 </c:choose>

@@ -32,7 +32,7 @@
         <ul>
           <li>
             <h2><span>Navigasjon</span></h2>
-            <a href="/dpg2" title="Kurs">Tilbake til kurssidene</a>
+            <a href="/dpg" title="Kurs">Tilbake til kurssidene</a>
           </li>
           <c:if test="${user.admin && !fn:contains(requestUri, 'courseList')}">
           <li>
